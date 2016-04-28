@@ -5,7 +5,7 @@ import classes from './Zen.scss'
 import type { ZenObject } from '../interfaces/zen'
 
 type Props = {
-  zen: ZenObject,
+  zen: ?ZenObject,
   saved: Array<ZenObject>,
   fetchZen: Function,
   saveCurrentZen: Function
