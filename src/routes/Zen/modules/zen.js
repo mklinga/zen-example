@@ -65,7 +65,7 @@ const ZEN_ACTION_HANDLERS = {
     return ({ ...state, zens: state.zens.concat(action.payload), current: action.payload.id, fetching: false })
   },
   [SAVE_CURRENT_ZEN]: (state: ZenStateObject): ZenStateObject => {
-    return state.current ? ({ ...state, saved: state.saved.concat(state.current) }) : state
+    return state.current != null ? ({ ...state, saved: state.saved.concat(state.current) }) : state
   }
 }
 
