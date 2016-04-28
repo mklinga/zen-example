@@ -15,28 +15,31 @@ export const Zen = (props: Props) => (
   <div>
     <div>
       <h2 className={classes.zenHeader}>
-        {props.zen.value}
+        {props.zen ? props.zen.value : ''}
       </h2>
       <button className='btn btn-default' onClick={props.fetchZen}>
-        Refresh
+        Fetch a wisdom
       </button>
       {' '}
       <button className='btn btn-default' onClick={props.saveCurrentZen}>
         Save
       </button>
     </div>
-    <div className={classes.savedWisdoms}>
-      <h3>
-        Saved wisdoms
-      </h3>
-      <ul>
-        {props.saved.map(zen =>
-          <li key={zen.id}>
-            {zen.value}
-          </li>
-        )}
-      </ul>
-    </div>
+    {props.saved.length
+      ? <div className={classes.savedWisdoms}>
+        <h3>
+          Saved wisdoms
+        </h3>
+        <ul>
+          {props.saved.map(zen =>
+            <li key={zen.id}>
+              {zen.value}
+            </li>
+          )}
+        </ul>
+      </div>
+      : null
+    }
   </div>
 )
 
