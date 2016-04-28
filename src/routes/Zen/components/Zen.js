@@ -2,6 +2,15 @@
 import React from 'react'
 import classes from './Zen.scss'
 
+import type { ZenObject } from '../interfaces/zen'
+
+type Props = {
+  zen: ZenObject,
+  saved: Array<ZenObject>,
+  fetchZen: Function,
+  saveCurrentZen: Function
+}
+
 export const Zen = (props: Props) => (
   <div>
     <div>

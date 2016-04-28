@@ -1,5 +1,7 @@
 /* @flow */
 
+import type { ZenObject, ZenStateObject } from '../interfaces/zen.js'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -56,19 +58,23 @@ export const actions = {
 // ------------------------------------
 
 const ZEN_ACTION_HANDLERS = {
-  [REQUEST_ZEN]: (state: object, action: {payload: object}): object => ({ ...state, fetching: true }),
-  [RECIEVE_ZEN]: (state: object, action: {payload: object}): object =>
-    ({ ...state, zens: state.zens.concat(action.payload), current: action.payload.id, fetching: false }),
-  [SAVE_CURRENT_ZEN]: (state: object): object =>
-    ({ ...state, saved: state.saved.concat(state.current) })
+  [REQUEST_ZEN]: (state: ZenStateObject): ZenStateObject => {
+    return ({ ...state, fetching: true })
+  },
+  [RECIEVE_ZEN]: (state: ZenStateObject, action: {payload: ZenObject}): ZenStateObject => {
+    return ({ ...state, zens: state.zens.concat(action.payload), current: action.payload.id, fetching: false })
+  },
+  [SAVE_CURRENT_ZEN]: (state: ZenStateObject): ZenStateObject => {
+    return state.current ? ({ ...state, saved: state.saved.concat(state.current) }) : state
+  }
 }
 
 // ------------------------------------
 // Reducers
 // ------------------------------------
 
-const initialState = { fetching: false, current: null, zens: [], saved: [] }
-export default function zenReducer (state: object = initialState, action: Action): object {
+const initialState: ZenStateObject = { fetching: false, current: null, zens: [], saved: [] }
+export default function zenReducer (state: ZenStateObject = initialState, action: Action): ZenStateObject {
   const handler = ZEN_ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state
